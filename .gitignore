@@ -1,3 +1,5 @@
 *.iml
 /out/
 .idea
+/Advanced Java/Currency Converter/nbproject/private/
+/Advanced Java/Currency Converter/build/

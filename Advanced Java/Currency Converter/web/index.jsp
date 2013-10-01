@@ -1,29 +1,52 @@
-<%-- 
-    Document   : index
-    Created on : Oct 1, 2013, 2:10:27 PM
-    Author     : jude
---%>
+<%--
+  ~ The MIT License (MIT)
+  ~
+  ~ Copyright (c) 2013 Jude Pereira
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+  ~ the Software, and to permit persons to whom the Software is furnished to do so,
+  ~ subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+  ~ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+  ~ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+  ~ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+  ~ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%--
+  Created by IntelliJ IDEA.
+  User: Jude Pereira
+  Date: 10/1/13
+  Time: 3:04 PM
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Currency Converter</title>
-    </head>
-    <body>
-        <form action="/convert" method="get">
-            Amount: <input type="text" name="amount"><br>
-            From: <select name="from">
-                <option value="USD">USD</option>
-                <option value="INR">INR</option>
-            </select><br>
-            
-            To: <select name="to">
-                <option value="USD">USD</option>
-                <option value="INR">INR</option>
-            </select><br>
-            <input type="submit" value="Convert">
-        </form>
-    </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Currency Converter</title>
+</head>
+<body>
+<form action="/convert" method="get">
+    Amount: <input type="text" name="amount"><br>
+    From: <select name="from">
+    <option value="USD">USD</option>
+    <option value="INR">INR</option>
+</select><br>
+
+    To: <select name="to">
+    <option value="USD">USD</option>
+    <option value="INR">INR</option>
+</select><br>
+    <input type="submit" value="Convert">
+</form>
+</body>
 </html>
