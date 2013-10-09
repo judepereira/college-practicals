@@ -23,46 +23,42 @@
 
 package com.judepereira.college.ns.practicals;
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
+import javax.crypto.Cipher;
+import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 
 public class RSA {
-
-    private static BigInteger p, q, n, d, e, ph, t;
-    private static SecureRandom r;
-
-    private static BigInteger encrypt(BigInteger msg, BigInteger e, BigInteger n) {
-        return msg.modPow(e, n);
-    }
-
-    private static BigInteger decrypt(BigInteger msg, BigInteger d, BigInteger n) {
-        return msg.modPow(d, n);
-    }
-
     public static void main(String[] args) {
-        r = new SecureRandom();
-        p = new BigInteger(512, 100, r);
-        q = new BigInteger(512, 100, r);
-        System.out.println("prime nos p and q are " + p.intValue() + " , "
-                + q.intValue());
-        n = p.multiply(q);
-        ph = (p.subtract(new BigInteger("1")));
-        ph = ph.multiply(q.subtract(new BigInteger("1")));
-        e = new BigInteger("2");
-        while (ph.gcd(e).intValue() > 1 || e.compareTo(ph)
-                != -1) {
-            e = e.add(new BigInteger("1"));//or "2" when bug
-            d = e.modInverse(ph);
-            System.out.println("public key is (" + n.intValue() + " , "
-                    + e.intValue() + ")");
-            System.out.println("pvt key is (" + n.intValue() + " , "
-                    + d.intValue() + ")");
-            BigInteger msg = new BigInteger("15");
-            System.out.println("\nMessage is: " + msg);
-            BigInteger enmsg = encrypt(msg, e, n);
-            System.out.println("\nEncrypted msg is: " + enmsg.intValue());
-            BigInteger demsg = decrypt(enmsg, d, n);
-            System.out.println("\nDecrypted msg is: " + demsg.intValue());
+        try {
+            // generate our private/public key pair
+            KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+            kpg.initialize(2048);
+            KeyPair kp = kpg.genKeyPair();
+            Key publicKey = kp.getPublic();
+            Key privateKey = kp.getPrivate();
+
+            String plainText = "The quick brown fox jumps over the lazy dog!";
+
+            // get the encrypt/decrypt cipher instances
+            Cipher eCipher = Cipher.getInstance("RSA");
+            Cipher dCipher = Cipher.getInstance("RSA");
+
+            // init the instances
+            eCipher.init(Cipher.PUBLIC_KEY, publicKey);
+            dCipher.init(Cipher.PRIVATE_KEY, privateKey);
+
+            // encrypt
+            byte[] encBytes = eCipher.doFinal(plainText.getBytes("UTF-8"));
+            String enc = new String(encBytes, "UTF-8");
+            System.out.println("CT: " + enc);
+
+            // decrypt
+            byte[] decBytes = dCipher.doFinal(encBytes);
+            String dec = new String(decBytes, "UTF-8");
+            System.out.println("PT: " + dec);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

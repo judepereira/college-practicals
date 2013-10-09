@@ -24,15 +24,13 @@
 package com.judepereira.college.ns.practicals;
 
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import java.io.UnsupportedEncodingException;
 
 public class AES {
 
-    Cipher ecipher;
-    Cipher dcipher;
+    private Cipher ecipher;
+    private Cipher dcipher;
 
     public AES(SecretKey key) {
         try {
@@ -40,9 +38,8 @@ public class AES {
             dcipher = Cipher.getInstance("AES");
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             dcipher.init(Cipher.DECRYPT_MODE, key);
-        } catch (javax.crypto.NoSuchPaddingException e) {
-        } catch (java.security.NoSuchAlgorithmException e) {
-        } catch (java.security.InvalidKeyException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -69,10 +66,8 @@ public class AES {
             byte[] utf8 = str.getBytes("UTF8");
             byte[] enc = ecipher.doFinal(utf8);
             return new sun.misc.BASE64Encoder().encode(enc);
-        } catch (javax.crypto.BadPaddingException e) {
-        } catch (IllegalBlockSizeException e) {
-        } catch (UnsupportedEncodingException e) {
-        } catch (java.io.IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
@@ -82,10 +77,8 @@ public class AES {
             byte[] dec = new sun.misc.BASE64Decoder().decodeBuffer(str);
             byte[] utf8 = dcipher.doFinal(dec);
             return new String(utf8, "UTF8");
-        } catch (javax.crypto.BadPaddingException e) {
-        } catch (IllegalBlockSizeException e) {
-        } catch (UnsupportedEncodingException e) {
-        } catch (java.io.IOException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

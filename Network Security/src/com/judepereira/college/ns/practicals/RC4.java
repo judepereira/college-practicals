@@ -51,7 +51,7 @@ public class RC4 {
             i = i + 1;
         }
         for (int k = 0; k < cipher.length; k++) {
-            System.out.print(" " + cipher[k]);
+            System.out.print("" + cipher[k]);
         }
     }
 }

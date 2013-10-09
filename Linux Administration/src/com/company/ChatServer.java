@@ -21,32 +21,38 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.judepereira.inventry.beans;
+package com.company;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
 
 /**
- * @author jude
+ * User: Jude Pereira
+ * Date: 10/8/13
+ * Time: 8:22 PM
  */
-public class ItemEntity {
-    private String name;
-    private int quantity;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+public class ChatServer {
+    public static void main(String[] args) throws IOException {
+        ServerSocket ss = new ServerSocket(8080);
+        System.out.println("Waiting for the client to connect...");
+        Socket s = ss.accept(); // block until client connects
+        System.out.println("Client has connected, waiting for first message from the client...");
+        Scanner in = new Scanner(s.getInputStream());
+        PrintWriter out = new PrintWriter(s.getOutputStream());
+        out.println("Welcome!");
+        out.flush();
+        Scanner conIn = new Scanner(System.in);
+        while (true) {
+            String msg = in.nextLine();
+            if (msg.equals("stop"))
+                return;
+            System.out.println("Client says: " + msg);
+            System.out.print("Server says: ");
+            out.println(conIn.nextLine());
+            out.flush();
+        }
     }
 }
