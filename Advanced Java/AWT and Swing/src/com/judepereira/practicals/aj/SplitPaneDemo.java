@@ -50,7 +50,7 @@ public class SplitPaneDemo extends JFrame {
                 if (index != -1) {
                     jl.setIcon(new ImageIcon("/home/jude/Extra/college/Practicals/Advanced Java/" + planets[index] + ".jpeg"));
                 } else {
-                    jl.setText("Choose a Planet");
+                    jl.setText("Choose a planet");
                 }
             }
         });
