@@ -23,35 +23,23 @@
 
 package com.judepereira.college.ns.practicals;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+
 public class RC4 {
 
     private static char cipher[];
 
-    public static void main(String[] args) {
-        int key[] = {1, 2, 3, 4, 5};
-        String strPlainText = "Hello World";
-        System.out.println("Original String: " + strPlainText);
-        int S[] = new int[255];
-        cipher = new char[strPlainText.length()];
-        for (int i = 0; i < S.length; i++) {
-            S[i] = i;
-        }
-        int i = 0;
-        int j = 0;
-        for (int k = 0; k < strPlainText.length(); k++) {
-            int modk = (k % key.length);
-            int Kc = key[modk];
-            j = (S[i] + j + Kc) % 256 + 1;
-            int temp = S[i];
-            S[i] = S[j];
-            S[j] = temp;
-            int Sc = (S[i] + S[j]) % 256;
-            int Ck = S[Sc];
-            cipher[k] = (char) (Ck ^ (int) strPlainText.charAt(k));
-            i = i + 1;
-        }
-        for (int k = 0; k < cipher.length; k++) {
-            System.out.print("" + cipher[k]);
-        }
+    public static void main(String[] args) throws Exception {
+        KeyGenerator kg = KeyGenerator.getInstance("ARCFOUR");
+        kg.init(40);
+        SecretKey secretKey = kg.generateKey();
+        Cipher eCipher = Cipher.getInstance("ARCFOUR");
+        eCipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        Cipher dCipher = Cipher.getInstance("ARCFOUR");
+        dCipher.init(Cipher.DECRYPT_MODE, secretKey);
+        String text = "hello world";
+        System.out.println(new String(eCipher.doFinal(text.getBytes())));
     }
 }
